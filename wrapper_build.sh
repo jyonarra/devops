@@ -10,9 +10,9 @@ then
 fi
 
 echo "Downloading the Devops related GIT files"
-git clone https://github.com/jyonarra/devops.git
+#git clone https://github.com/jyonarra/devops.git
 
-cd Devops
+#cd Devops
 
 #echo "Triggering the Build checkout"
 #sh abhsiehk_script.sh
@@ -26,7 +26,7 @@ exit 1
 fi
 
 echo "Starting the Build"
-sh maven_build.sh
+sh maven_build.sh ../$1/maven.properties ./sample-poc
 if [ $? -eq 0 ]
 then
 echo "Build completed "
