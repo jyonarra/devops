@@ -46,7 +46,7 @@ exit 1
 fi
 
 echo "Performing Sonar Analaysis"
-sh sonar.sh
+sh sonar.sh sonar.properties
 if [ $? -eq 0 ]
 then
 echo "Sonar completed under $pwd"

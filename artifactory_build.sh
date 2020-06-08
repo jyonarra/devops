@@ -12,11 +12,10 @@ FILE_LOCATION=`grep file_path artifactory.properties|awk -F"=" '{print $2}'`
 
 if [ $# -eq 1 ]
 then
-       echo "curl -i -u ${USRNAME}:${PASSWD} -X PUT "http://${SERVER}:${PORT}/artifactory/${PROJECT}/${APP}/${1}/${MODULE}" -T ${FILE_LOCATION}/${MODULE}"
-
+       curl -u${USRNAME}:${PASSWD} -T ${FILE_LOCATION} "http://${SERVER}:${PORT}/artifactory/generic-local/${APP}/${1}/${MODULE}"
         if [ $? -eq 0 ]
         then
-                echo "Upload is successful.You can see the uploaded artifact in http://${SERVER}:${PORT}/artifactory/${PROJECT}/${APP}/${1}/"
+                echo "Upload is successful.You can see the uploaded artifact in http://${SERVER}:${PORT}/artifactory/generic-local/${APP}/${1}/"
         else
                 echo "Upload is not successful. Please upload the file again"
 	exit 1
