@@ -6,9 +6,9 @@ echo $java_home
 export $java_home
 
 #MAVEN_HOME
-m2_home=$(cat $1 | grep MAVEN_HOME)
+m2_home=$(cat $1 | grep MAVEN_HOME | cut -d= -f2)
 echo $m2_home
-export $m2_home
+export M2_HOME=$m2_home
 
 #COMMAND FOR BUILD
 commad=$(cat $1 | grep COMMAND |  cut -d= -f2)
