@@ -113,7 +113,7 @@ s+=" -Dsonar.host.url=http://161.202.18.153:9000"
 
 echo $s
 
-sonar-scanner $s
+/sprint/sonar/sonar-runner/sonar-scanner-4.3.0.2102/bin/sonar-scanner $s
 
 #$echo $sonar-scanner
 
