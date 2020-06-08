@@ -1,9 +1,0 @@
-projectKey=ci:cd
-projectName=ci_cd_demo
-projectVersion=1.1
-sourceEncoding=UTF-8
-basedir=/sprint/jenkins/workspace
-language=java
-exclusions=
-binaries=/sprint/jenkins/workspace/CICD/java_web_code/target/classes
-sources=/sprint/jenkins/workspace/CICD/java_web_code
