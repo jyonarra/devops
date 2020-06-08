@@ -22,7 +22,7 @@ echo "settings_PATH $settings_PATH"
 cd $2
 if [ $commad == "install"  ] && [  $settings_file == YES ]  &&  [ $skipTests == YES  ]
 then
-$m2_hpme/bin/mvn clean install --skipTests -s $settings_PATH/settings.xml
+$m2_home/bin/mvn clean install --skipTests -s $settings_PATH/settings.xml
 elif [ $commad == "install"  ] && [  $settings_file == NO ]  &&  [ $skipTests == YES  ] 
 then
 $m2_home/bin/mvn clean install --skipTests 
