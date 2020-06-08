@@ -12,7 +12,7 @@ FILE_LOCATION=`grep file_path artifactory.properties|awk -F"=" '{print $2}'`
 
 if [ $# -eq 1 ]
 then
-       echo "curl -i -u ${USRNAME}:${PASSWD} -X PUT "http://${SERVER}:${PORT}/artifactory/${PROJECT}/${APP}/${1}/${MODULE}" -T ${FILE_LOCATION}/${MODULE}"
+       echo "curl -i -u ${USRNAME}:${PASSWD} -X PUT "http://${SERVER}:${PORT}/artifactory/${PROJECT}/${APP}/${1}/${MODULE}" -T ${FILE_LOCATION}"
 
         if [ $? -eq 0 ]
         then
