@@ -9,8 +9,8 @@ then
 	exit 1
 fi
 
-echo "Downloading the Devops related GIT files"
-git clone -b $1 https://github.com/jyonarra/devops.git
+#echo "Downloading the Devops related GIT files"
+#git clone -b $1 https://github.com/jyonarra/devops.git
 
 #cd Devops
 
