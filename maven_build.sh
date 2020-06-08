@@ -31,4 +31,4 @@ then
  $m2_home/bin/mvn clean install 
 elif [ $commad == "install"  ] && [  $settings_file == YES ]  &&  [ $skipTests == NO ]
 $m2_home/bin/mvn clean install  -s $settings_PATH/settings.xml
- fi
+fi
