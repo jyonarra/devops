@@ -1,20 +1,18 @@
 #!/bin/bash
 
-USRNAME=`grep username  AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
-PASSWD=`grep password  AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
-APP=`grep app_name AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
-MODULE=`grep module_name AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
-PROJECT=`grep application_name AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
-SERVER=`grep server_name AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
-PORT=`grep port_number AppA_AppA.ear_artifactory.properties|awk -F"=" '{print $2}'`
+USRNAME=`grep username artifactory.properties|awk -F"=" '{print $2}'`
+PASSWD=`grep password artifactory.properties|awk -F"=" '{print $2}'`
+APP=`grep app_name artifactory.properties|awk -F"=" '{print $2}'`
+MODULE=`grep module_name artifactory.properties|awk -F"=" '{print $2}'`
+PROJECT=`grep application_name artifactory.properties|awk -F"=" '{print $2}'`
+SERVER=`grep server_name artifactory.properties|awk -F"=" '{print $2}'`
+PORT=`grep port_number artifactory.properties|awk -F"=" '{print $2}'`
+FILE_LOCATION=`grep file_path artifactory.properties|awk -F"=" '{print $2}'`
 
-#echo "artifactory is $NAME"
-#echo "$APP" > ${1}_name_artifactory.txt
-#echo "$MODULE" > ${1}_module_artifactory.txt
 
-if [ $# -eq 4 ]
+if [ $# -eq 1 ]
 then
-       echo "curl -i -u ${USRNAME}:${PASSWD} -X PUT "http://${SERVER}:${PORT}/artifactory/${PROJECT}/${APP}/${1}/${MODULE}" -T ${FILE_PATH}/${MODULE}"
+       echo "curl -i -u ${USRNAME}:${PASSWD} -X PUT "http://${SERVER}:${PORT}/artifactory/${PROJECT}/${APP}/${1}/${MODULE}" -T ${FILE_LOCATION}/${MODULE}"
 
         if [ $? -eq 0 ]
         then
@@ -24,5 +22,5 @@ then
 	exit 1
         fi
 else
-        echo "Please pass 4 arguments : <app_name> <module_name> <build_number> <file_path>"
+        echo "Please pass argument: <build_number>"
 fi 
