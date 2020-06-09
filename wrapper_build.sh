@@ -26,7 +26,7 @@ exit 1
 fi
 
 echo "Starting the Build"
-sh maven_build.sh maven.properties ./sample-poc
+sh maven_build.sh
 if [ $? -eq 0 ]
 then
 echo "Build completed "
