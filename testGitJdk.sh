@@ -10,6 +10,6 @@ if [ "${java_name}" = "1.8" ]
 fi
 
 echo "CHECKING OUT SOURCE CODE FROM GIT REPOSITORY"
-git clone https://github.com/jyonarra/devops.git
+git clone https://github.com/jyonarra/sample-poc.git
 
 echo "CHECKOUT DONE"
