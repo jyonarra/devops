@@ -1,5 +1,6 @@
 #Shell Script for MAVEN BUILD
 #!/bin/sh
+. ./maven.properties
 #JAVA_HOME
 java_home=$(cat $1 | grep JAVA_HOME)
 echo $java_home
