@@ -14,9 +14,9 @@ fi
 
 #cd Devops
 
-#echo "Triggering the Build checkout"
-#sh abhsiehk_script.sh
-git clone https://github.com/jyonarra/sample-poc.git
+echo "Triggering the Build checkout"
+sh testGitJdk.sh $java_name
+#git clone https://github.com/jyonarra/sample-poc.git
 if [ $? -eq 0 ]
 then
 echo "Checkout completed under $pwd"
@@ -54,5 +54,27 @@ else
 echo "Sonar failed under $pwd"
 exit 1
 fi
+
+echo "Downloading the Artifacts to stage location"
+sh artifactory_build_download.sh $Build_num
+if [ $? -eq 0 ]
+then
+echo "Artifactory download completed"
+else
+echo "Artifactory download failed"
+exit 1
+fi
+
+echo "Starting the Artifact deployment"
+sh deploy-app.sh $Env
+if [ $? -eq 0 ]
+then
+echo "Deployment completed"
+else
+echo "Deployment failed"
+exit 1
+fi
+
 sleep 2
+
 
