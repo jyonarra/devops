@@ -74,7 +74,7 @@ then
     if [ ${ENV_SERVER_TYPE} == "jboss" ]
     then
         ##restart server
-        if [ ${ENV_AUTO_DEPLOY} == "NO" ]
+        if [ ${ENV_AUTO_DEPLOY} == "YES" ]
         then
             ##stop server
             ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_STOP}"
