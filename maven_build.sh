@@ -19,7 +19,9 @@ skipTests=$(cat $1 | grep skipTests |  cut -d= -f2)
 echo "skipTests $skipTests"
 settings_PATH=$(cat $1 | grep settings_PATH |  cut -d= -f2)
 echo "settings_PATH $settings_PATH"
-cd $2
+code_PATH=$(cat $1 | grep code_PATH |  cut -d= -f2)
+echo "code_PATH $code_PATH"
+cd $code_PATH
 if [ $commad == "install"  ] && [  $settings_file == YES ]  &&  [ $skipTests == YES  ]
 then
 $m2_home/bin/mvn clean install --skipTests -s $settings_PATH/settings.xml
