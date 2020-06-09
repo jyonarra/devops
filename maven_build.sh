@@ -2,12 +2,12 @@
 #!/bin/sh
 . ./maven.properties
 #JAVA_HOME
-java_home=$(cat $1 | grep JAVA_HOME)
+java_home=$(cat ./maven.properties| grep JAVA_HOME)
 echo $java_home
 export $java_home
 
 #MAVEN_HOME
-m2_home=$(cat $1 | grep MAVEN_HOME | cut -d= -f2)
+m2_home=$(cat ./maven.properties | grep MAVEN_HOME | cut -d= -f2)
 echo $m2_home
 export M2_HOME=$m2_home
 
