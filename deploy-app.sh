@@ -107,7 +107,9 @@ then
                 echo "Undeploy of ${ARTIFACT} on ${ENV_HOSTNAME} failed, check errors.."
                 exit 1
             fi
-
+            
+            sleep 30
+            
             ##deploy app
             ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=169.56.110.155:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
             if [ $? -eq 0 ]
