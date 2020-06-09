@@ -1,38 +1,49 @@
 #Shell Script for MAVEN BUILD
 #!/bin/sh
+
+#importing property file
 . ./maven.properties
+
 #JAVA_HOME
-java_home=$(cat ./maven.properties| grep JAVA_HOME)
-echo $java_home
-export $java_home
+echo "JAVA_HOME is $JAVA_HOME"
+export JAVA_HOME=$JAVA_HOME
+
 
 #MAVEN_HOME
-m2_home=$(cat ./maven.properties | grep MAVEN_HOME | cut -d= -f2)
-echo $m2_home
-export M2_HOME=$m2_home
+echo "MAVEN_HOME is  $MAVEN_HOME"
+export M2_HOME=$MAVEN_HOME
 
 #COMMAND FOR BUILD
-commad=$(cat ./maven.properties | grep COMMAND |  cut -d= -f2)
-echo $commad
-settings_file=$(cat ./maven.properties | grep settings_file |  cut -d= -f2)
+echo "build command $GOALS"
+
+
+#Settings.file is there or not
 echo "settings_file $settings_file"
-skipTests=$(cat ./maven.properties | grep skipTests |  cut -d= -f2)
-echo "skipTests $skipTests"
-settings_PATH=$(cat ./maven.properties | grep settings_PATH |  cut -d= -f2)
+
+#SkipTests
+echo "Skiptest $skipTests"
+
+#Settings.xml file PATH if they have specific
 echo "settings_PATH $settings_PATH"
-code_PATH=$(cat ./maven.properties | grep code_PATH |  cut -d= -f2)
+
+#code path for build
 echo "code_PATH $code_PATH"
 cd $code_PATH
-if [ $commad == "install"  ] && [  $settings_file == YES ]  &&  [ $skipTests == YES  ]
+
+#build the code based on goal and settings.xml file and inlcuding skipTests 
+if [  $settings_file == YES ]  &&  [ $skipTests == YES  ]
 then
-$m2_home/bin/mvn clean install --skipTests -s $settings_PATH/settings.xml
-elif [ $commad == "install"  ] && [  $settings_file == NO ]  &&  [ $skipTests == YES  ] 
+$MAVEN_HOME/bin/mvn clean $GOALS -DskipTests -s $settings_PATH/settings.xml
+elif [  $settings_file == NO ]  &&  [ $skipTests == YES  ] 
 then
-$m2_home/bin/mvn clean install --skipTests 
-elif [ $commad == "install"  ] && [  $settings_file == NO ]  &&  [ $skipTests == NO  ]
+$MAVEN_HOME/bin/mvn clean $GOALS -DskipTests 
+elif [  $settings_file == NO ]  &&  [ $skipTests == NO  ]
 then
- $m2_home/bin/mvn clean install 
-elif [ $commad == "install"  ] && [  $settings_file == YES ]  &&  [ $skipTests == NO ]
+ $MAVEN_HOME/bin/mvn clean $GOALS
+elif [  $settings_file == YES ]  &&  [ $skipTests == NO ]
 then
-$m2_home/bin/mvn clean install  -s $settings_PATH/settings.xml
+$MAVEN_HOME/bin/mvn clean $GOALS  -s $settings_PATH/settings.xml
 fi
+
+
+
