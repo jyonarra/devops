@@ -98,7 +98,7 @@ then
             fi
         else
             ##undeploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./admin.sh undeploy ${ARTIFACT}"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect --command='undeploy ${ARTIFACT}'"
             if [ $? -eq 0 ]
             then
                 echo "Undeployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
@@ -109,7 +109,7 @@ then
             fi
 
             ##deploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./admin.sh deploy ${ARTIFACT}"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect --command='deploy ${ARTIFACT} --force'"
             if [ $? -eq 0 ]
             then
                 echo "Deployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
