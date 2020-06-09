@@ -12,15 +12,15 @@ echo $m2_home
 export M2_HOME=$m2_home
 
 #COMMAND FOR BUILD
-commad=$(cat $1 | grep COMMAND |  cut -d= -f2)
+commad=$(cat ./maven.properties | grep COMMAND |  cut -d= -f2)
 echo $commad
-settings_file=$(cat $1 | grep settings_file |  cut -d= -f2)
+settings_file=$(cat ./maven.properties | grep settings_file |  cut -d= -f2)
 echo "settings_file $settings_file"
-skipTests=$(cat $1 | grep skipTests |  cut -d= -f2)
+skipTests=$(cat ./maven.properties | grep skipTests |  cut -d= -f2)
 echo "skipTests $skipTests"
-settings_PATH=$(cat $1 | grep settings_PATH |  cut -d= -f2)
+settings_PATH=$(cat ./maven.properties | grep settings_PATH |  cut -d= -f2)
 echo "settings_PATH $settings_PATH"
-code_PATH=$(cat $1 | grep code_PATH |  cut -d= -f2)
+code_PATH=$(cat ./maven.properties | grep code_PATH |  cut -d= -f2)
 echo "code_PATH $code_PATH"
 cd $code_PATH
 if [ $commad == "install"  ] && [  $settings_file == YES ]  &&  [ $skipTests == YES  ]
