@@ -109,7 +109,7 @@ then
             fi
 
             ##deploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect --command='deploy ${ARTIFACT} --force'"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
             if [ $? -eq 0 ]
             then
                 echo "Deployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
