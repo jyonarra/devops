@@ -98,7 +98,7 @@ then
             fi
         else
             ##undeploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=169.56.110.155:9990 --command='undeploy ${ARTIFACT}'"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='undeploy ${ARTIFACT}'"
             if [ $? -eq 0 ]
             then
                 echo "Undeployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
@@ -111,7 +111,7 @@ then
             sleep 30
             
             ##deploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=169.56.110.155:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
             if [ $? -eq 0 ]
             then
                 echo "Deployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
