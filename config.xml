@@ -1,0 +1,112 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.39">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.6.0"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.6.0">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.0.18"/>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>App_name</name>
+          <description>Please pass the application name</description>
+          <defaultValue></defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>java_name</name>
+          <description>Please pass the JDK version</description>
+          <defaultValue></defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ENV</name>
+          <description>Please pass the environment</description>
+          <defaultValue></defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.80">
+    <script>pipeline {
+   agent any
+
+   stages {
+      stage(&apos;Cleaning&apos;) {
+         steps {
+            // Run Maven on a Unix agent.
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;rm -rf *&quot;
+            }
+         }
+      }
+      stage(&apos;CheckOut&apos;) {
+         steps {
+            // Run Maven on a Unix agent.
+            git &apos;https://github.com/jyonarra/devops.git&apos;
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;chmod 755 *&quot;
+            sh &quot;./testGitJdk.sh $java_name&quot;
+            }
+         }
+      }
+      stage(&apos;Build&apos;) {
+         steps {
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;./maven_build.sh&quot;
+            }
+        }
+      }
+      stage(&apos;Sonar Analysis&apos;) {
+         steps {
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;./sonar.sh sonar.properties&quot;
+            }
+        }
+      }
+      stage(&apos;Upload Artifact&apos;) {
+         steps {
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;./artifactory_build.sh $BUILD_NUMBER&quot;
+            }
+        }
+      }
+      stage(&apos;Artifactory Download in Stage&apos;) {
+         steps {
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;./artifactory_build_download.sh $BUILD_NUMBER&quot;
+            }
+        }
+      }
+      stage(&apos;Server Deployment&apos;) {
+         steps {
+            dir (&quot;${WORKSPACE}&quot;)
+            {
+            sh &quot;./deploy-app.sh $ENV&quot;
+            sh &quot;sleep 5&quot;
+            }
+        }
+      }
+   }
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
