@@ -53,7 +53,7 @@
       stage(&apos;CheckOut&apos;) {
          steps {
             // Run Maven on a Unix agent.
-            git &apos;https://github.com/jyonarra/devops.git&apos;
+            git &apos;https://github.com/jyothin212/devops.git&apos;
             dir (&quot;${WORKSPACE}&quot;)
             {
             sh &quot;chmod 755 *&quot;
