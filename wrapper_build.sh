@@ -9,14 +9,8 @@ then
 	exit 1
 fi
 
-#echo "Downloading the Devops related GIT files"
-#git clone -b $1 https://github.com/jyonarra/devops.git
-
-#cd Devops
-
 echo "Triggering the Build checkout"
 sh testGitJdk.sh $java_name
-#git clone https://github.com/jyonarra/sample-poc.git
 if [ $? -eq 0 ]
 then
 echo "Checkout completed under $pwd"
