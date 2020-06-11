@@ -15,7 +15,7 @@ git clone https://github.com/jyonarra/sample-poc.git
 echo "CHECKING OUT DEVOPS PROPERTY CODE FROM GIT REPOSITORY"
 cd $WORKSPACE
 rm -rf devops
-git clone -b $App_name https://github.com/jyonarra/devops.git
+git clone -b $App_name https://github.com/jyothin212/devops.git
 cd devops
 mv * ../
 cd $WORKSPACE
