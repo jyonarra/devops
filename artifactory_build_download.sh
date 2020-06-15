@@ -15,7 +15,7 @@ then
     SERVER=`grep ${ARTIFACTORY_NAME}_server_name artifactory.properties|awk -F"=" '{print $2}'`
     PORT=`grep ${ARTIFACTORY_NAME}_port_number artifactory.properties|awk -F"=" '{print $2}'`
 
-cd /sprint/scripts/naveen
+cd /sprint/stage
 curl -u${USRNAME}:${PASSWD} -O http://${SERVER}:${PORT}/artifactory/generic-local/${APP}/${1}/${MODULE}
 if [ $? -eq 0 ]
         then
@@ -36,7 +36,7 @@ then
     SERVER=`grep ${ARTIFACTORY_NAME}_server_name artifactory.properties|awk -F"=" '{print $2}'`
     PORT=`grep ${ARTIFACTORY_NAME}_port_number artifactory.properties|awk -F"=" '{print $2}'`
 
-cd /sprint/scripts/naveen
+cd /sprint/stage
   curl -u ${USRNAME}:${PASSWD} -O http://${SERVER}:${PORT}/repository/sprint_applications/${APP}/${1}/${MODULE}
       if [ $? -eq 0 ]
         then
