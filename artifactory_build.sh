@@ -13,7 +13,7 @@ then
     PROJECT=`grep ${ARTIFACTORY_NAME}_application_name artifactory.properties|awk -F"=" '{print $2}'`
     SERVER=`grep ${ARTIFACTORY_NAME}_server_name artifactory.properties|awk -F"=" '{print $2}'`
     PORT=`grep ${ARTIFACTORY_NAME}_port_number artifactory.properties|awk -F"=" '{print $2}'`
-    FILE_LOCATION=`grep file_path artifactory.properties|awk -F"=" '{print $2}'`
+    FILE_LOCATION=`grep ${ARTIFACTORY_NAME}_file_path artifactory.properties|awk -F"=" '{print $2}'`
 
     curl -u${USRNAME}:${PASSWD} -T ${FILE_LOCATION} "http://${SERVER}:${PORT}/artifactory/generic-local/${APP}/${1}/${MODULE}"
         if [ $? -eq 0 ]
