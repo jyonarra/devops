@@ -39,7 +39,7 @@ then
         curl -v -u ${USRNAME}:${PASSWD} --upload-file ${FILE_LOCATION} http://${SERVER}:${PORT}/repository/sprint_applications/${APP}/${1}/${MODULE}
         if [ $? -eq 0 ]
         then
-                echo "Upload is successful.You can see the uploaded artifact in http://${SERVER}:${PORT}/repository/sprint_applications/${APP}/${1}/"
+                echo "Upload is successful.You can see the uploaded artifact in http://${SERVER}:${PORT}/service/rest/repository/browse/sprint_applications/${APP}/${1}/"
         else
                 echo "Upload is not successful. Please upload the file again"
                     exit 1
