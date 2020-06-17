@@ -24,13 +24,13 @@
         <hudson.model.StringParameterDefinition>
           <name>java_name</name>
           <description>Please pass the JDK version</description>
-          <defaultValue></defaultValue>
+          <defaultValue>1.8</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>ENV</name>
           <description>Please pass the environment</description>
-          <defaultValue></defaultValue>
+          <defaultValue>DEV1</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -38,7 +38,7 @@
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.80">
     <script>pipeline {
-   agent any
+   agent { label &apos;master&apos; }
 
    stages {
       stage(&apos;Cleaning&apos;) {
