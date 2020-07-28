@@ -40,8 +40,9 @@ then
     DATE=`date +%y%m%d`
 
     ## backup the artifact
-   sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_BACKUP} && cp ${ENV_DEPLOY}/${ARTIFACT} ${ARTIFACT}_${DATE}"
-        if [ $? -eq 0 ]
+   #sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_BACKUP} && cp ${ENV_DEPLOY}/${ARTIFACT} ${ARTIFACT}_${DATE}"
+    ssh -q devopsadmin@169.38.90.249 "cd /tmp && cp /sprint/jboss/jboss-eap-7.3/standalone/deployments/api.war api.war_28072020"
+     if [ $? -eq 0 ]
     then
         echo "${ARTIFACT} is backed up at ${ENV_BACKUP}/${ARTIFACT}_${DATE}"
         echo
