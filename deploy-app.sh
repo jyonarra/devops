@@ -40,7 +40,7 @@ then
     DATE=`date +%y%m%d`
 
     ## backup the artifact
-    ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_BACKUP} && cp ${ENV_DEPLOY}/${ARTIFACT} ${ARTIFACT}_${DATE}"
+   sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_BACKUP} && cp ${ENV_DEPLOY}/${ARTIFACT} ${ARTIFACT}_${DATE}"
         if [ $? -eq 0 ]
     then
         echo "${ARTIFACT} is backed up at ${ENV_BACKUP}/${ARTIFACT}_${DATE}"
@@ -58,7 +58,7 @@ then
     if [ -f ${STAGE}/${ARTIFACT} ]
     then
 
-        scp ${ARTIFACT} ${ENV_USER}@${ENV_HOSTNAME}:${ENV_DEPLOY}
+        sshpass -p "devopsadmin" scp ${ARTIFACT} ${ENV_USER}@${ENV_HOSTNAME}:${ENV_DEPLOY}
     else
         echo "File ${ARTIFACT} does not exist, check errors.."
         exit 1
@@ -77,7 +77,7 @@ then
         if [ ${ENV_AUTO_DEPLOY} == "YES" ]
         then
             ##stop server
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_STOP}"
+           sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_STOP}"
             if [ $? -eq 0 ]
             then
                 echo "Stopped app server successfully on ${ENV_HOSTNAME}"
@@ -87,7 +87,7 @@ then
                 exit 1
             fi
             ##start server
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_START}"
+            sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_START}"
             if [ $? -eq 0 ]
             then
                 echo "Started app server successfully on ${ENV_HOSTNAME}"
@@ -98,7 +98,7 @@ then
             fi
         else
             ##undeploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='undeploy ${ARTIFACT}'"
+            sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='undeploy ${ARTIFACT}'"
             if [ $? -eq 0 ]
             then
                 echo "Undeployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
@@ -111,7 +111,7 @@ then
             sleep 30
             
             ##deploy app
-            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
+           sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
             if [ $? -eq 0 ]
             then
                 echo "Deployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
