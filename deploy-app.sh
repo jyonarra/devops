@@ -41,15 +41,15 @@ then
 
     ## backup the artifact
    #sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_BACKUP} && cp ${ENV_DEPLOY}/${ARTIFACT} ${ARTIFACT}_${DATE}"
-    ssh -q devopsadmin@169.38.90.249 "cd /tmp && cp /sprint/jboss/jboss-eap-7.3/standalone/deployments/api.war api.war_28072020"
-     if [ $? -eq 0 ]
-    then
-        echo "${ARTIFACT} is backed up at ${ENV_BACKUP}/${ARTIFACT}_${DATE}"
-        echo
-    else
-        echo "Backup of ${ARTIFACT} failed, check errors.."
-        exit 1
-    fi
+    #ssh -q devopsadmin@169.38.90.249 "cd /tmp && cp /sprint/jboss/jboss-eap-7.3/standalone/deployments/api.war api.war_28072020"
+     #if [ $? -eq 0 ]
+    #then
+     #   echo "${ARTIFACT} is backed up at ${ENV_BACKUP}/${ARTIFACT}_${DATE}"
+      #  echo
+    #else
+      #  echo "Backup of ${ARTIFACT} failed, check errors.."
+       # exit 1
+    #fi
 
         ##deploy the artifact
     echo "Copying the ${ARTIFACT} to ${ENV_HOSTNAME}:${ENV_DEPLOY}"
