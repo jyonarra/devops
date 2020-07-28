@@ -109,7 +109,7 @@ else
       s+=" -Dsonar.projectBaseDir=$BASEDIR"
 fi
 
-s+=" -Dsonar.host.url=http://169.51.204.123:30731
+s+=" -Dsonar.host.url=http://169.51.204.123:30731"
 
 echo $s
 /sprint/sonar/sonar-runner/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner $s
