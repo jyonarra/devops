@@ -59,7 +59,7 @@ then
     if [ -f ${STAGE}/${ARTIFACT} ]
     then
 
-        sshpass -p "devopsadmin" scp ${ARTIFACT} ${ENV_USER}@${ENV_HOSTNAME}:${ENV_DEPLOY}
+         scp ${ARTIFACT} ${ENV_USER}@${ENV_HOSTNAME}:${ENV_DEPLOY}
     else
         echo "File ${ARTIFACT} does not exist, check errors.."
         exit 1
@@ -78,7 +78,7 @@ then
         if [ ${ENV_AUTO_DEPLOY} == "YES" ]
         then
             ##stop server
-           sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_STOP}"
+           ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_STOP}"
             if [ $? -eq 0 ]
             then
                 echo "Stopped app server successfully on ${ENV_HOSTNAME}"
@@ -88,7 +88,7 @@ then
                 exit 1
             fi
             ##start server
-            sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_START}"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "sh ${ENV_START}"
             if [ $? -eq 0 ]
             then
                 echo "Started app server successfully on ${ENV_HOSTNAME}"
@@ -99,7 +99,7 @@ then
             fi
         else
             ##undeploy app
-            sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='undeploy ${ARTIFACT}'"
+            ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='undeploy ${ARTIFACT}'"
             if [ $? -eq 0 ]
             then
                 echo "Undeployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
@@ -112,7 +112,7 @@ then
             sleep 30
             
             ##deploy app
-           sshpass -p "devopsadmin" ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
+           ssh -q ${ENV_USER}@${ENV_HOSTNAME} "cd ${ENV_INSTANCE} && ./jboss-cli.sh --connect controller=localhost:9990 --command='deploy ${ENV_DEPLOY}/${ARTIFACT} --force'"
             if [ $? -eq 0 ]
             then
                 echo "Deployed ${ARTIFACT} successfully on ${ENV_HOSTNAME}"
