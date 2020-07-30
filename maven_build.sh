@@ -36,7 +36,7 @@ echo "code_PATH $code_PATH"
 cd $code_PATH
 
 #build the code based on goal and settings.xml file and inlcuding skipTests 
-if [  $settings_file == YES ]  &&  [ $skipTests == YES  ]
+if [  $settings_file == YES ]  &&  [ [ $skipTests == YES  ] || [ $skipTests == Yes ] ||  [ $skipTests == yes ] ]
 then
 $MAVEN_HOME/bin/mvn clean $GOALS -DskipTests -s $settings_PATH/settings.xml
 elif [  $settings_file == NO ]  &&  [ $skipTests == YES  ] 
